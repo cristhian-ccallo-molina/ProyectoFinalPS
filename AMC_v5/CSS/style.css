@@ -164,9 +164,9 @@ footer {
 
 .caja1 {
   width: 75%;
-  order: 1;
+  order: 2;
 }
 .caja2 {
   width: 75%;
-  order: 2;
+  order: 1;
 }

@@ -1,15 +1,13 @@
 <?php
-header('Content-Type: text/html; charset=UTF-8');
-echo '<h2>Facturación electrónica SUNAT</h2><br>';
+//header('Content-Type: text/html; charset=UTF-8');
+//echo '<h2>Facturación electrónica SUNAT</h2><br>';
 
-require dirname(__FILE__) . '/robrichards/src/xmlseclibs.php';
+require dirname(__FILE__) . '/Librerias/src/xmlseclibs.php';
 use RobRichards\XMLSecLibs\XMLSecurityDSig;
 use RobRichards\XMLSecLibs\XMLSecurityKey;
 
 session_start();
 $NomArch = $_SESSION["nomArchivo"];
-unset($_SESSION["nomArchivo"]);
-
 // Cargar el XML a firmar
 $doc = new DOMDocument();
 $doc->load('Facturas sin firmar/'.$NomArch.'.xml');
@@ -32,24 +30,24 @@ $objDSig->addReference(
 $objKey = new XMLSecurityKey(XMLSecurityKey::RSA_SHA1, array('type' => 'private'));
 
 //Cargamos la clave privada
-$objKey->loadKey('archivos_pem/private_key.pem', true);
+$objKey->loadKey('certificados/clavePrivada.pem', true);
 $objDSig->sign($objKey);
 
 // Agregue la clave pública asociada a la firma
-$objDSig->add509Cert(file_get_contents('archivos_pem/public_key.pem'), true, false, array('subjectName' => true)); // array('issuerSerial' => true, 'subjectName' => true));
+$objDSig->add509Cert(file_get_contents('certificados/clavePublica.pem'), true, false, array('subjectName' => true)); // array('issuerSerial' => true, 'subjectName' => true));
 // Anexar la firma al XML
 $objDSig->appendSignature($doc->getElementsByTagName('ExtensionContent')->item(1));
 // Guardar el XML firmado
-$doc->save('Facturas firmadas/'.$NomArch.'.xml');
-chmod('Facturas firmadas/'.$NomArch.'.xml', 0777);
+$doc->save('Uploading-files-to-Google-Drive-with-PHP-master/files/'.$NomArch.'.xml');
+chmod('Uploading-files-to-Google-Drive-with-PHP-master/files/'.$NomArch.'.xml', 0777);
 
 require('lib/pclzip.lib.php'); // Librería que comprime archivos en .ZIP
 
 ## Creación del archivo .ZIP
 
-$zip = new PclZip('Facturas firmadas/'.$NomArch.'.zip');
-$zip->create('Facturas firmadas/'.$NomArch.'.xml', PCLZIP_OPT_REMOVE_ALL_PATH);
-chmod('Facturas firmadas/'.$NomArch.'.zip', 0777);
+$zip = new PclZip('Uploading-files-to-Google-Drive-with-PHP-master/files/'.$NomArch.'.zip');
+$zip->create('Uploading-files-to-Google-Drive-with-PHP-master/files/'.$NomArch.'.xml', PCLZIP_OPT_REMOVE_ALL_PATH);
+chmod('Uploading-files-to-Google-Drive-with-PHP-master/files/'.$NomArch.'.zip', 0777);
 
 # Procedimiento para enviar comprobante a la SUNAT
 class feedSoap extends SoapClient{
@@ -106,7 +104,7 @@ $XMLString = '<?xml version="1.0" encoding="UTF-8"?>
  <soapenv:Body>
      <ser:sendBill>
         <fileName>'.$NomArch.'.zip</fileName>
-        <contentFile>' . base64_encode(file_get_contents('./Facturas firmadas/'.$NomArch.'.zip')) . '</contentFile>
+        <contentFile>' . base64_encode(file_get_contents('./Uploading-files-to-Google-Drive-with-PHP-master/files/'.$NomArch.'.zip')) . '</contentFile>
      </ser:sendBill>
  </soapenv:Body>
 </soapenv:Envelope>';
@@ -115,38 +113,37 @@ $XMLString = '<?xml version="1.0" encoding="UTF-8"?>
 $result = soapCall($wsdlURL, $callFunction = "sendBill", $XMLString);
 
 //Descargamos el Archivo Response
-$archivo = fopen('Facturas firmadas/'.'C'.$NomArch.'.xml','w+');
+$archivo = fopen('Uploading-files-to-Google-Drive-with-PHP-master/files/'.'C'.$NomArch.'.xml','w+');
 fputs($archivo,$result);
 fclose($archivo);
 
 
 /*LEEMOS EL ARCHIVO XML*/
-$xml = simplexml_load_file('Facturas firmadas/'.'C'.$NomArch.'.xml'); 
+$xml = simplexml_load_file('Uploading-files-to-Google-Drive-with-PHP-master/files/'.'C'.$NomArch.'.xml'); 
 foreach ($xml->xpath('//applicationResponse') as $response){ }
 
 /*AQUI DESCARGAMOS EL ARCHIVO CDR(CONSTANCIA DE RECEPCIÓN)*/
 $cdr=base64_decode($response);
-$archivo = fopen('Facturas firmadas/'.'R-'.$NomArch.'.zip','w+');
+$archivo = fopen('Uploading-files-to-Google-Drive-with-PHP-master/files/'.'R-'.$NomArch.'.zip','w+');
 fputs($archivo,$cdr);
 fclose($archivo);
-chmod('Facturas firmadas/'.'R-'.$NomArch.'.zip', 0777);
+chmod('Uploading-files-to-Google-Drive-with-PHP-master/files/'.'R-'.$NomArch.'.zip', 0777);
 
-$archive = new PclZip('Facturas firmadas/'.'R-'.$NomArch.'.zip');
-if ($archive->extract('Facturas firmadas/')==0) { 
+$archive = new PclZip('Uploading-files-to-Google-Drive-with-PHP-master/files/'.'R-'.$NomArch.'.zip');
+if ($archive->extract('Uploading-files-to-Google-Drive-with-PHP-master/files/')==0) { 
     die("Error : ".$archive->errorInfo(true)); 
 }else{
-    chmod('Facturas firmadas/'.'R-'.$NomArch.'.xml', 0777);    
+    chmod('Uploading-files-to-Google-Drive-with-PHP-master/files/'.'R-'.$NomArch.'.xml', 0777);    
 } 
 
-echo '<div style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12pt; color: #000000; margin-top: 10px;">';
+/*echo '<div style="font-family: Arial; font-size: 12pt; color: #000000; margin-top: 10px;">';
 echo 'Archivo .XML enviado a la SUNAT, nos retornó una constancia de recepción (CRD):<br>';
 echo '<span style="color: red;">R-'.$NomArch.'.xml</span>';
-echo '</div>';
+echo '</div>';*/
 
 /*Eliminamos el Archivo Response*/
-unlink('Facturas firmadas/'.'C'.$NomArch.'.xml');
-echo "<br>
- <a target='_blank' href='Facturas firmadas/R-$NomArch.xml'>Ver XML de Aceptación</a>";
+unlink('Uploading-files-to-Google-Drive-with-PHP-master/files/'.'C'.$NomArch.'.xml');
+/*echo "<br>
+ <a target='_blank' href='Uploading-files-to-Google-Drive-with-PHP-master/files/R-$NomArch.xml'>Ver XML de Aceptación</a>";*/
+ header("location: PDF/generarFacturaPdf.php");
  ?>
- <br>
- <a href="index.php">Inicio</a>

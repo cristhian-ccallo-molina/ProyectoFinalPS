@@ -6,7 +6,7 @@
 	$d = new Data();
 
 	$detalles = $d->getDetalles($idBoleta);
-	echo "<h2>Detalles de Boleta ID: $idBoleta</h2>";
+	echo "<h2>Detalles de Factura con ID: $idBoleta</h2>";
 
 	echo "<table border='1'>";
 		echo "<tr>";
@@ -40,5 +40,5 @@
 	echo "</table>";
 	echo "<br>";
 	echo "<br>";
-	echo "<a href='../Vista/boletas.php'>Volver a Boletas</a>";
+	echo "<a href='../Vista/boletas.php'>Volver a Facturas</a>";
  ?>

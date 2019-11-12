@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2">
+  <ext:UBLExtensions>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <sac:AdditionalInformation>
+          <sac:AdditionalMonetaryTotal>
+            <cbc:ID>2005</cbc:ID>
+            <cbc:PayableAmount currencyID="PEN">40.6</cbc:PayableAmount>
+          </sac:AdditionalMonetaryTotal>
+          <sac:AdditionalMonetaryTotal>
+            <cbc:ID>1001</cbc:ID>
+            <cbc:PayableAmount currencyID="PEN">40.6</cbc:PayableAmount>
+          </sac:AdditionalMonetaryTotal>
+          <sac:AdditionalMonetaryTotal>
+            <cbc:ID>1002</cbc:ID>
+            <cbc:PayableAmount currencyID="PEN">0.00</cbc:PayableAmount>
+          </sac:AdditionalMonetaryTotal>
+          <sac:AdditionalMonetaryTotal>
+            <cbc:ID>1003</cbc:ID>
+            <cbc:PayableAmount currencyID="PEN">0.00</cbc:PayableAmount>
+          </sac:AdditionalMonetaryTotal>
+
+          <sac:AdditionalProperty>
+            <cbc:ID>1000</cbc:ID>
+            <cbc:Value>1000</cbc:Value>
+          </sac:AdditionalProperty>
+          <sac:AdditionalProperty>
+            <cbc:ID>1002</cbc:ID>
+            <cbc:Value>1002 AAAAA</cbc:Value>
+          </sac:AdditionalProperty>
+          <sac:AdditionalProperty>
+            <cbc:ID>2000</cbc:ID>
+            <cbc:Value>2000 BBBB</cbc:Value>
+          </sac:AdditionalProperty>
+          <sac:AdditionalProperty>
+            <cbc:ID>2002</cbc:ID>
+            <cbc:Value>2002 CCC</cbc:Value>
+          </sac:AdditionalProperty>
+          <sac:AdditionalProperty>
+            <cbc:ID>2003</cbc:ID>
+            <cbc:Value>2003 DDD</cbc:Value>
+          </sac:AdditionalProperty>
+          <sac:AdditionalProperty>
+            <cbc:ID>2005</cbc:ID>
+            <cbc:Value>2005 EEE</cbc:Value>
+          </sac:AdditionalProperty>
+          <sac:AdditionalProperty>
+            <cbc:ID>2006</cbc:ID>
+            <cbc:Value>2006 AAAAA</cbc:Value>
+          </sac:AdditionalProperty>
+          <sac:AdditionalProperty>
+            <cbc:ID>2007</cbc:ID>
+            <cbc:Value>2007 GGG</cbc:Value>
+          </sac:AdditionalProperty>
+          <sac:AdditionalProperty>
+            <cbc:ID>3000</cbc:ID>
+            <cbc:Value>3000 FOB</cbc:Value>
+          </sac:AdditionalProperty>
+
+          <sac:SUNATTransaction>
+            <cbc:ID>1</cbc:ID>
+          </sac:SUNATTransaction>
+        </sac:AdditionalInformation>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+    <ext:UBLExtension>
+      <ext:ExtensionContent> <ds:Signature Id="SignSUNAT">
+  <ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+    <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+  <ds:Reference URI=""><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>9OERIVR49ZOx17veupWc68VZ/14=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>Y2nbJ9kvagf029OE+NRovF0AJitCbXAfQXLPM0gQmYQpwmh5mWW1HYEoQJWjRIIoYM+LjG5HZlc1YTH/hfo74Ta0c54XMBHYGbEETLq774qTf7lVzbhzev2NqZAcVyPAm4cUlIRjjxWhcK/H5xrfzF0vzABU+WmDUMHasbBTvRau0gU2UWQoFjoyTo17w1v7LsxqCJ0kiByI9woAc9f0jVHc0xfARuPcTyB/YiBCX6FB1E5+qA5G9jEJazpAoGBXgQpiJnhX1i6QJDX2f+Zv4LBypc3SpBG6eV9/cD36dm6O1JlulrjydzF3vvtP8iEX6Srdc3WmaE+v6ylJiJBQBA==</ds:SignatureValue>
+<ds:KeyInfo><ds:X509Data><ds:X509SubjectName>emailAddress=demo@llama.pe,CN=NOMBRE REPRESENTANTE LEGAL - CERTIFICADO PARA DEMOSTRACIÓN,OU=DNI 9999999 RUC 10294886504 - CERTIFICADO PARA DEMOSTRACIÓN,O=TU EMPRESA S.A.,L=LIMA,ST=LIMA,C=PE,DC=LLAMA.PE SA</ds:X509SubjectName><ds:X509Certificate>MIIE8TCCA9mgAwIBAgICcqAwDQYJKoZIhvcNAQEFBQAwggENMRswGQYKCZImiZPyLGQBGRYLTExBTUEuUEUgU0ExCzAJBgNVBAYTAlBFMQ0wCwYDVQQIDARMSU1BMQ0wCwYDVQQHDARMSU1BMRgwFgYDVQQKDA9UVSBFTVBSRVNBIFMuQS4xRTBDBgNVBAsMPEROSSA5OTk5OTk5IFJVQyAxMDI5NDg4NjUwNCAtIENFUlRJRklDQURPIFBBUkEgREVNT1NUUkFDScOTTjFEMEIGA1UEAww7Tk9NQlJFIFJFUFJFU0VOVEFOVEUgTEVHQUwgLSBDRVJUSUZJQ0FETyBQQVJBIERFTU9TVFJBQ0nDk04xHDAaBgkqhkiG9w0BCQEWDWRlbW9AbGxhbWEucGUwHhcNMTgwNzE5MDMzMjMwWhcNMjAwNzE4MDMzMjMwWjCCAQ0xGzAZBgoJkiaJk/IsZAEZFgtMTEFNQS5QRSBTQTELMAkGA1UEBhMCUEUxDTALBgNVBAgMBExJTUExDTALBgNVBAcMBExJTUExGDAWBgNVBAoMD1RVIEVNUFJFU0EgUy5BLjFFMEMGA1UECww8RE5JIDk5OTk5OTkgUlVDIDEwMjk0ODg2NTA0IC0gQ0VSVElGSUNBRE8gUEFSQSBERU1PU1RSQUNJw5NOMUQwQgYDVQQDDDtOT01CUkUgUkVQUkVTRU5UQU5URSBMRUdBTCAtIENFUlRJRklDQURPIFBBUkEgREVNT1NUUkFDScOTTjEcMBoGCSqGSIb3DQEJARYNZGVtb0BsbGFtYS5wZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJKOo9Zm1BVazUkPcjJYiqWbsuXUSa0KoMUbBIpjoc0K4xeJasw2P+vhMAze6r2RYxMDU9CIxp+EINLklqJBcvQUWvad9oVJYMuD9tV1RfE8+EV9Pf9sVVh4cMJu59+gtZdKVZ7aOj541EbkqD44QiRJyh37wRUB4VdjZpbXw6OccX4DorRnTJFyoqqwF/DL1xzIGbC0CI8Za05Jn9Ru2fCKlk2/hwhirfV9YT46AKWDRI+HsgUKmdDbplOtSwqGkZtcKt63eMTIHnjpj1Dmds2KdbsgH6wtqj70zZpGXUHF+c35+G/JXV7zzxUGEOXtIprDOpFJ5ID740lisskzAxECAwEAAaNXMFUwHQYDVR0OBBYEFIsr/PtyF32IBVfcDXG9ghvv/k8zMB8GA1UdIwQYMBaAFIsr/PtyF32IBVfcDXG9ghvv/k8zMBMGA1UdJQQMMAoGCCsGAQUFBwMBMA0GCSqGSIb3DQEBBQUAA4IBAQAv5pr198iwZmRTjqgvgDMcN/r8gi8R7Wb3Rph4gSquuhuNCW5kK0ggLVrE9MRLan5T9IvBQ8XIsRouVyQ+fM0i8dmA/pW+qur+yC4vgZMt/i954sbzrsOsW6P+exixRbXpAX6bmGZ4TocerxvquIRPn/Y3jlraODg1QMmjq7CY3DhTid8O9H2iX62GHnYkbA50NMYi9RVWZly8w1PK76oIEiniJhx374xoxkJN4bIZgKpq4EfGkqseD29rR15XxF04U2T4xT8N6SBznRAtEDQCUsbs4M1B2a7va2Gk2ydDzAgDzUfK5U0sMx82G9rPDfx4nHymwnJqurVRByRsdqcQ</ds:X509Certificate></ds:X509Data></ds:KeyInfo></ds:Signature></ext:ExtensionContent>
+    </ext:UBLExtension>
+  </ext:UBLExtensions>
+  <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+  <cbc:CustomizationID>1.0</cbc:CustomizationID>
+  <cbc:ID>F002-00000002</cbc:ID>
+  <cbc:IssueDate>2018-07-05</cbc:IssueDate>
+
+  <cbc:InvoiceTypeCode>01</cbc:InvoiceTypeCode>
+
+  <cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
+  <cac:Signature>
+    <cbc:ID>10294886504</cbc:ID>
+    <cbc:Note>Elaborado por Sistema de Emision Electronica Facturador SUNAT (SEE-SFS) 1.0.5</cbc:Note>
+    <cbc:ValidatorID>780086</cbc:ValidatorID>
+    <cac:SignatoryParty>
+      <cac:PartyIdentification>
+        <cbc:ID>10294886504</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name>Prueba AMC S.A.</cbc:Name>
+      </cac:PartyName>
+      <cac:AgentParty>
+        <cac:PartyIdentification>
+          <cbc:ID>10294886504</cbc:ID>
+        </cac:PartyIdentification>
+        <cac:PartyName>
+          <cbc:Name>Prueba AMC S.A.</cbc:Name>
+        </cac:PartyName>
+        <cac:PartyLegalEntity>
+
+          <cbc:RegistrationName>Grupo AMC </cbc:RegistrationName>
+
+        </cac:PartyLegalEntity>
+      </cac:AgentParty>
+    </cac:SignatoryParty>
+    <cac:DigitalSignatureAttachment>
+      <cac:ExternalReference>
+        <cbc:URI>SIGN</cbc:URI>
+      </cac:ExternalReference>
+    </cac:DigitalSignatureAttachment>
+  </cac:Signature>
+  <cac:AccountingSupplierParty>
+
+    <cbc:CustomerAssignedAccountID>10294886504</cbc:CustomerAssignedAccountID>
+    <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+    <cac:Party>
+      <cac:PartyName>
+        <cbc:Name>Prueba AMC S.A.</cbc:Name>
+      </cac:PartyName>
+      <cac:PostalAddress>
+        <cbc:ID>040101</cbc:ID>
+        <cbc:StreetName>Grupo AMC ISS</cbc:StreetName>
+        <cac:Country>
+          <cbc:IdentificationCode>PER</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:PostalAddress>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName>Grupo AMC</cbc:RegistrationName>
+      </cac:PartyLegalEntity>
+    </cac:Party>
+  </cac:AccountingSupplierParty>
+  <cac:AccountingCustomerParty>
+    <cbc:CustomerAssignedAccountID>10294886504</cbc:CustomerAssignedAccountID>
+    <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+    <cac:Party>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName>VIP</cbc:RegistrationName>
+
+      </cac:PartyLegalEntity>
+    </cac:Party>
+  </cac:AccountingCustomerParty>
+  <cac:SellerSupplierParty>
+    <cac:Party>
+      <cac:PostalAddress>
+        <cbc:AddressTypeCode>0</cbc:AddressTypeCode>
+      </cac:PostalAddress>
+    </cac:Party>
+  </cac:SellerSupplierParty>
+  <cac:TaxTotal>
+    <cbc:TaxAmount currencyID="PEN">18.00</cbc:TaxAmount>
+    <cac:TaxSubtotal>
+      <cbc:TaxAmount currencyID="PEN">18.00</cbc:TaxAmount>
+      <cac:TaxCategory>
+        <cac:TaxScheme>
+          <cbc:ID>1000</cbc:ID>
+          <cbc:Name>IGV</cbc:Name>
+          <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+        </cac:TaxScheme>
+      </cac:TaxCategory>
+    </cac:TaxSubtotal>
+  </cac:TaxTotal>
+  <cac:LegalMonetaryTotal>
+    <cbc:AllowanceTotalAmount currencyID="PEN">0.00</cbc:AllowanceTotalAmount>
+    <cbc:ChargeTotalAmount currencyID="PEN">0.00</cbc:ChargeTotalAmount>
+    <cbc:PayableAmount currencyID="PEN">40.6</cbc:PayableAmount>
+  </cac:LegalMonetaryTotal>
+  <cac:InvoiceLine>
+    <cbc:ID>1</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="ZZ">1</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="PEN">100.00</cbc:LineExtensionAmount>
+    <cac:PricingReference>
+      <cac:AlternativeConditionPrice>
+        <cbc:PriceAmount currencyID="PEN">40.60</cbc:PriceAmount>
+        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+      </cac:AlternativeConditionPrice>
+    </cac:PricingReference>
+    <cac:AllowanceCharge>
+      <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+      <cbc:Amount currencyID="PEN">0.00</cbc:Amount>
+    </cac:AllowanceCharge>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="PEN">18.00</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxableAmount currencyID="PEN">18.00</cbc:TaxableAmount>
+        <cbc:TaxAmount currencyID="PEN">18.00</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+          <cac:TaxScheme>
+            <cbc:ID>1000</cbc:ID>
+            <cbc:Name>IGV</cbc:Name>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description>feo</cbc:Description>
+      <cac:SellersItemIdentification>
+        <cbc:ID>ALM</cbc:ID>
+      </cac:SellersItemIdentification>
+      <cac:AdditionalItemIdentification>
+        <cbc:ID>A</cbc:ID>
+      </cac:AdditionalItemIdentification>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="PEN">1.00</cbc:PriceAmount>
+    </cac:Price>
+  </cac:InvoiceLine>
+</Invoice>

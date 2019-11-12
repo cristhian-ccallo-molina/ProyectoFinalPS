@@ -281,8 +281,9 @@
  
         fclose($archivo);
     }
-	 unset($_SESSION["total"]);
-	 unset($_SESSION["ruc"]);
+	 //unset($_SESSION["total"]);
+	 //unset($_SESSION["ruc"]);
+   //unset($_SESSION["rzn"]);
  ?>
  <br>
  <br>

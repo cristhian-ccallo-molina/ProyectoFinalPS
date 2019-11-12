@@ -6,7 +6,7 @@
 
 	$con = new Conexion();
 	
-	$sql = "INSERT INTO `CLIENTE` (`cod_tipo_doc_usuario`, `num_doc_usuario`, `rzn_social_usuario`) VALUES ('$tipDoc', '$numDoc', '$razon')"; 
+	$sql = "insert into `cliente` (`cod_tipo_doc_usuario`, `num_doc_usuario`, `rzn_social_usuario`) values ('$tipDoc', '$numDoc', '$razon')"; 
 	$con->ejecutar($sql);
 	header("location: ../index.php");
  ?>

@@ -1,6 +1,6 @@
 <?php 
 	require_once "../Modelo/Detalle.php";
-	
+	echo "entra aqui";
 	$p = new Detalle();
 	$p->id = $_POST["textId"];
 	$p->nombre = $_POST["textNombre"];
@@ -8,7 +8,7 @@
 	$p->stock = $_POST["textStock"];
 	$p->cantidad = $_POST["textCantidad"];
 	$p->subtotal = $p->precio * $p->cantidad;
-
+	echo "entra aqui";
 
 	if ($p->cantidad > 0) {
 		session_start();

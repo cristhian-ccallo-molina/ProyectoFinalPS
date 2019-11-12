@@ -10,7 +10,7 @@
 
 	$con = new Conexion();
 	
-	$sql = "INSERT INTO `PRODUCTO` (`cod_producto`, `cod_producto_sunat`, `cod_unidad_medida`, `des_item`, `mto_valor_unitario`, `stock`, `mto_igv_item`, `cod_tip_afe_igv`) VALUES ('$codpro', '0', '$uniMed', '$desItem', '$valUni', '$stock', '$mtoIgv', '$tipAfe')"; 
+	$sql = "insert into `producto` (`cod_producto`, `cod_producto_sunat`, `cod_unidad_medida`, `des_item`, `mto_valor_unitario`, `stock`, `mto_igv_item`, `cod_tip_afe_igv`) values ('$codpro', '0', '$uniMed', '$desItem', '$valUni', '$stock', '$mtoIgv', '$tipAfe')"; 
 	$con->ejecutar($sql);
 	header("location: ../index.php");
  ?>

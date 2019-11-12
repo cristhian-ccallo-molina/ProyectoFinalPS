@@ -1,5 +1,5 @@
 <?php 
-	require_once "../Modelo/Data.php";
+    require_once "../Modelo/Data.php";
 	require_once "../Modelo/boletaCabecera.php";
 
 	$c = new boletaCabecera();
@@ -16,7 +16,8 @@
 	$c->impTotal = "0";
 
 	//$ruc = $_POST["num_RUC"];
-	$numRuc = "20532710066";
+	$numRuc = "10294886504";
+	$rzn = $_POST["ap_nomb_den_razSoc"];
 
 	session_start();
 	if(isset($_SESSION["cab"])){
@@ -32,6 +33,13 @@
 		$ruc = $numRuc;
 	}
 	$_SESSION["ruc"] = $ruc;
+
+	if(isset($_SESSION["rzn"])){
+		$r = $_SESSION["rzn"];
+	} else {
+		$r = $rzn;
+	}
+	$_SESSION["rzn"] = $r;
 
 	//echo $c->tipOperacion." - ".$c->fecha;
 	header("location: ../index.php");

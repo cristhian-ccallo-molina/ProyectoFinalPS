@@ -6,6 +6,8 @@
 	require_once "tipoOperacion.php";
 	require_once "localEmisor.php";
 	require_once "nombreCliente.php";
+	require_once "tipoDocUsuario.php";
+	require_once "numDocUsuario.php";
 
 	class Data {
 		private $con;
@@ -16,7 +18,7 @@
 		}
 		public function getProductos(){
 			$productos = array();
-			$query ="SELECT * FROM PRODUCTO";
+			$query ="select * from producto";
 			$res = $this->con->ejecutar($query);
 
 			while ($reg = mysqli_fetch_array($res)) {
@@ -33,7 +35,7 @@
 		}
 		public function getBoletasCabeceras(){
 			$cabeceras = array();
-			$query ="SELECT * FROM BOLETA_CABECERA";
+			$query ="select * from boleta_cabecera";
 			$res = $this->con->ejecutar($query);
 
 			while ($reg = mysqli_fetch_array($res)) {
@@ -58,11 +60,11 @@
 		public function getUltimaCabecera(){
 			$c = new boletaCabecera();
 
-			$query = "SELECT MAX(id_boleta) FROM BOLETA_CABECERA";
+			$query = "select max(id_boleta) from boleta_cabecera";
 			$res = $this->con->ejecutar($query);
 			$re = mysqli_fetch_array($res);
 
-			$query ="SELECT * FROM BOLETA_CABECERA WHERE id_boleta=$re[0]";
+			$query ="select * from boleta_cabecera where id_boleta=$re[0]";
 			$res2 = $this->con->ejecutar($query);
 
 			if ($reg = mysqli_fetch_array($res2)){
@@ -81,8 +83,8 @@
 			return $c;
 		}
 		public function getDetalles ($idBoleta) {
-			$query = "SELECT d.id_detalle, p.des_item, d.ctd_unidad_item, d.mto_precio_venta_item, d.mto_valor_venta_item, p.mto_valor_unitario, p.mto_igv_item
-			FROM BOLETA_DETALLE d, PRODUCTO p WHERE d.cod_producto=p.cod_producto AND d.id_boleta = $idBoleta";
+			$query = "select d.id_detalle, p.des_item, d.ctd_unidad_item, d.mto_precio_venta_item, d.mto_valor_venta_item, p.mto_valor_unitario, p.mto_igv_item
+			from boleta_detalle d, producto p where d.cod_producto=p.cod_producto and d.id_boleta = $idBoleta";
 
 			$detalles = array();
 
@@ -104,7 +106,7 @@
 
 		public function tipOperaciones () {
 			$oper = array();
-			$query ="SELECT t.cod_tip_operacion, t.des_tip_operacion FROM TIPO_OPERACION t";
+			$query ="select t.cod_tip_operacion, t.des_tip_operacion from tipo_operacion t";
 			$res = $this->con->ejecutar($query);
 
 			while ($reg = mysqli_fetch_array($res)) {
@@ -116,9 +118,23 @@
 			return $oper;
 		}
 
+		public function tipDocUser () {
+			$oper = array();
+			$query ="select t.cod_tipo_doc_usuario, t.des_tipo_doc_usuario from tipo_doc_identidad t";
+			$res = $this->con->ejecutar($query);
+
+			while ($reg = mysqli_fetch_array($res)) {
+				$p = new tipoDocUsuario();
+				$p->id = $reg[0];
+				$p->des = $reg[1];
+				array_push($oper, $p);
+			}
+			return $oper;
+		}
+
 		public function localEmisores () {
 			$local = array();
-			$query ="SELECT l.cod_local_emisor, l.des_local_emisor FROM LOCAL_ANEXO_EMISOR l";
+			$query ="select l.cod_local_emisor, l.des_local_emisor from local_anexo_emisor l";
 			$res = $this->con->ejecutar($query);
 
 			while ($reg = mysqli_fetch_array($res)) {
@@ -132,12 +148,25 @@
 
 		public function nombreClientes () {
 			$cliente = array();
-			$query ="SELECT c.rzn_social_usuario FROM CLIENTE c";
+			$query ="select c.rzn_social_usuario from cliente c";
 			$res = $this->con->ejecutar($query);
 
 			while ($reg = mysqli_fetch_array($res)) {
 				$p = new nombreCliente();
 				$p->rzn = $reg[0];
+				array_push($cliente, $p);
+			}
+			return $cliente;
+		}
+
+		public function numDocUsers () {
+			$cliente = array();
+			$query ="select c.num_doc_usuario from cliente c";
+			$res = $this->con->ejecutar($query);
+
+			while ($reg = mysqli_fetch_array($res)) {
+				$p = new numDocUsuario();
+				$p->num = $reg[0];
 				array_push($cliente, $p);
 			}
 			return $cliente;
@@ -150,11 +179,11 @@
 			//crear la venta
 			$c = new boletaCabecera();
 			$c = $cab;
-			$query = "INSERT INTO BOLETA_CABECERA values (null, '$c->tipOperacion', '$c->numBoleta', '$c->fecha', '$c->localEmisor', '$c->tipDocUsuario', '$c->docUsuario', '$c->tipMoneda', '$total','0', '$total')";
+			$query = "insert into boleta_cabecera values (null, '$c->tipOperacion', '$c->numBoleta', '$c->fecha', '$c->localEmisor', '$c->tipDocUsuario', '$c->docUsuario', '$c->tipMoneda', '$total','0', '$total')";
 			$this->con->ejecutar($query);
 
 			//rescatar la ultima venta (id)
-			$query = "SELECT MAX(id_boleta) FROM BOLETA_CABECERA";
+			$query = "select max(id_boleta) from boleta_cabecera";
 			$res = $this->con->ejecutar($query);
 
 			$idUltimaCabesera=0;
@@ -164,7 +193,7 @@
 			 
 			//los insert en el detalle
 			foreach ($listaDetalles as $p) {
-				$query = "INSERT INTO BOLETA_DETALLE values (null,$idUltimaCabesera, $p->id, $p->cantidad, '0', $p->precio, $p->subtotal)";
+				$query = "insert into boleta_detalle values (null,$idUltimaCabesera, $p->id, $p->cantidad, '0', $p->precio, $p->subtotal)";
 
 				$this->con->ejecutar($query);
 				$this->actualizarStock($p->id, $p->cantidad);
@@ -173,7 +202,7 @@
 		//descontar el stock
 		}
 		public function actualizarStock ($id, $stockADescontar) {
-			$query = "SELECT stock FROM PRODUCTO where cod_producto=$id";
+			$query = "select stock from producto where cod_producto=$id";
 			$res = $this->con->ejecutar($query);
 
 			$stockActual = 0;
@@ -183,7 +212,7 @@
 
 			$stockActual -= $stockADescontar;
 
-			$query = "UPDATE PRODUCTO set stock=$stockActual where cod_producto=$id";
+			$query = "update producto set stock=$stockActual where cod_producto=$id";
 			$this->con->ejecutar($query);
 		}
 	}

@@ -9,13 +9,13 @@
 		$d = new Data ();
 		$boletasCabeceras = $d->getBoletasCabeceras();
 
-		echo "<h2>Listado de Boletas</h2>";
+		echo "<h2>Listado de Facturas</h2>";
 
 		echo "<table border='1'>";
 			echo "<tr>";
 				echo "<th>ID</th>";
 				echo "<th>Tipo de Operación</th>";
-				echo "<th>Número de Boleta</th>";
+				echo "<th>Número de Factura</th>";
 				echo "<th>Fecha</th>";
 				echo "<th>Local del Emisor</th>";
 				echo "<th>Tipo de Doc. de Usuario</th>";

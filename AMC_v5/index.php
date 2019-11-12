@@ -2,17 +2,18 @@
 <html lang="en" class="bg-color">
 
 <head>
+  
   <title>AMC</title>
-
+  <link rel="stylesheet" href="CSS/style.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>  
+  <script src='js/jquery.min.js'></script>
+  <script  src="js/index.js"></script>
 </head>
-
 <body>
-
-<nav class="bg-color">Boleta de Venta - AMC</nav>
-
+<nav class="bg-color">Factura Electrónica - AMC</nav>
 <section class="wrapper">
-	<ul class="tabs">
-		<li class="active">Formulario</li>
+    <ul class="tabs">
+    	<li class="active">Formulario</li>
 		<li>Agregar Cliente</li>
 		<li>Agregar Producto</li>
 	</ul>
@@ -22,8 +23,12 @@
 			<div class="content__wrapper cajon">
 				<div class="caja1"><?php
 			require_once "Modelo/Detalle.php";
+			require_once "Modelo/Data.php";
+			require_once "Modelo/boletaCabecera.php";
+
 			session_start();
 			if (isset($_SESSION["carrito"])){
+				
 				$carrito = $_SESSION["carrito"];
 
 				echo "<h3>Detalle de compras</h3>";
@@ -70,31 +75,32 @@
 					</div>
 					<div>
 						<label>Sumatoria igv</label>
-						<input type='text' name='sum_igv>
+						<input type='text' name='sum_igv' placeholder='0.00' disabled>
 					</div>
 					<div>
 						<label>Importe total de la venta</label>
-						<input type='text' name='imp_tot_venta'>
-					</div>
-					<div>
-						<label>Importe total de la venta</label>
-						<input type='text' name='imp_tot_venta'>
+						<input type='text' name='imp_tot_venta' placeholder='$total' disabled>
 					</div>
 				</div>";
 				echo "<form action='Controlador/generarBoleta.php' method='post'><input type='submit' value='Comprar'></form>";
 			}
-		?>
-		<br>
-		<a href="Vista/boletas.php">Lista de Boletas</a>
+		
+		echo "<br>
+		<a href='Vista/boletas.php'>Lista de Facturas</a><br>
+	        <a href='Uploading-files-to-Google-Drive-with-PHP-master/'>Enviar Todos los XML - PDF al repositorio</a><br>
 		<br>
 		<br>
 	</div>
-	<div class="caja2">
-		<div class="titulo">
-				<h2>Boleta de Venta</h2>
-		</div>
-		<?php 
-			require_once "Modelo/Data.php";
+
+
+
+
+	<div class='caja2'>
+		<div class='titulo'>
+				<h2>Factura Electrónica</h2>
+		</div>";
+		
+			
 
 
 			$d = new Data();
@@ -102,12 +108,51 @@
 			$operaciones = $d->tipOperaciones();
 			$emisores = $d->localEmisores();
 			$nomCli = $d->nombreClientes();
+			$tipDocs = $d->tipDocUser();
+			$numDocs = $d->numDocUsers();
 
+			$totalCab = count($d->getBoletasCabeceras())+1;
+			$totalCab = str_pad($totalCab, 8, "0", STR_PAD_LEFT);
+			
+			if(isset($_SESSION["cab"])){
+				$cab = $_SESSION["cab"];
+				$ruc = $_SESSION["ruc"];
+				$rzn = $_SESSION["rzn"];
+
+				echo "<div class='cabesera'>
+				<div>
+					<label>Tipo de operación: </label><label style='color:#000000';> $cab->tipOperacion</label>";
+							
+			echo "</div>
+				<div>
+					<label>Numero de RUC: </label><label style='color:#000000';> $ruc</label>
+				</div>
+				<div>
+					<label>Numeración,conformada por serie y número correlativo BF02-1426: </label><label style='color:#000000';> $cab->numBoleta</label>
+				</div>
+				<div>
+					<label>Fecha de Emisión: </label><label style='color:#000000';> $cab->fecha</label>
+				</div>
+				<div>		
+					<label>Nombre y Dirección  del emisor: </label><label style='color:#000000';> $cab->localEmisor</label>";
+
+				echo "</div>
+				<div>
+					<label>Tipo de documento del usuario: </label><label style='color:#000000';> $cab->tipDocUsuario</label>
+				</div>
+				<div>
+					<label>Numero de documento del usuario: </label><label style='color:#000000';> $cab->docUsuario</label>
+				</div>
+				<div>
+					<label>Apellidos y Nombres/denominación/razón social del usuario: </label><label style='color:#000000';> $rzn</label>";
+				echo "</div>
+			</div>";
+			} else {
 			//otro formulario
 			echo "<div class='cabesera'>
 			<form action='Controlador/guardarCabecera.php' method='post'>
 				<div>
-					<label>Tipo de operación:</label>";
+					<label>Tipo de operación: </label>";
 
 					// Combo box para tipo de operación (tipo de documento)
 					echo "<select name='tipo_doc'>";
@@ -119,19 +164,19 @@
 							
 			echo "</div>
 				<div>
-					<label>Numero de RUC:</label>
-					<input type='text' name='num_RUC' maxlength='11' value='20532710066'>
+					<label>Numero de RUC: </label>
+					<input type='text' name='num_RUC' maxlength='11' value='10294886504' disabled>
 				</div>
 				<div>
-					<label>Numeración,conformada por serie y número correlativo BF02-1426:</label>
-					<input type='text' name='serie_comp' id='codigop1' maxlength='4' >-<input type='text' name='numero_comp' id='codigop2' maxlength='4'/>
+					<label>Numeración,conformada por serie y número correlativo BF02-1426: </label>
+					<input type='text' name='serie_comp' id='codigop1' maxlength='4' value='F002' disabled>-<input type='text' name='numero_comp' id='codigop2'value='$totalCab' disabled maxlength='8'/>
 				</div>
 				<div>
-					<label>Fecha de Emisión:</label>
+					<label>Fecha de Emisión: </label>
 					<input type='date' name='fecha_emi'>
 				</div>
 				<div>		
-					<label>Nombre y Dirección  del emisor:</label>";
+					<label>Nombre y Dirección  del emisor: </label>";
 
 
 					// Combo box para código y dirección del emisor
@@ -144,15 +189,29 @@
 
 				echo "</div>
 				<div>
-					<label>Tipo de documento del usuario:</label>
-					<input type='text' name='tip_doc_us' maxlength='15' value'1'>
-				</div>
+					<label>Tipo de documento del usuario: </label>";
+
+					// Combo box para apellidos, nombres, razon social del cliente
+					echo "<select name='tip_doc_us'>";
+					foreach ($tipDocs as $p) {
+						echo "<option value='$p->id'>$p->id - $p->des</option>";
+					}
+					echo "</select>";
+
+				echo "</div>
 				<div>
-					<label>Numero de documento del usuario:</label>
-					<input type='text' name='num_doc_us'>
-				</div>
+					<label>Numero de documento del usuario: </label>";
+
+					// Combo box para apellidos, nombres, razon social del cliente
+					echo "<select name='num_doc_us'>";
+					foreach ($numDocs as $p) {
+						echo "<option value='$p->num'>$p->num</option>";
+					}
+					echo "</select>";
+
+				echo "</div>
 				<div>
-					<label>Apellidos y Nombres/denominación/razón social del usuario:</label>";
+					<label>Apellidos y Nombres/denominación/razón social del usuario: </label>";
 
 
 					// Combo box para apellidos, nombres, razon social del cliente
@@ -167,6 +226,7 @@
 				echo "</div>
 				<input type='submit' value='Guardar Cabecera'></form>
 			</div>";
+			}
 
 
 			echo "<br><table border='1'>
@@ -184,7 +244,7 @@
 					<td>".$p->precio."</td>
 					<td>".$p->stock."</td>
 					<td>
-						<form action='Controlador/agregar.php' method='POST'>
+						<form action='Controlador/Agregar.php' method='POST'>
 							<input type='hidden' name='textId' value='".$p->id."'>
 							<input type='hidden' name='textNombre' value='".$p->nombre."'>
 							<input type='hidden' name='textPrecio' value='".$p->precio."'>
@@ -224,7 +284,7 @@
 							require_once "Modelo/Conexion.php";
 							$con = new Conexion();
 
-							$query = "SELECT t.cod_tipo_doc_usuario, t.des_tipo_doc_usuario FROM TIPO_DOC_IDENTIDAD t";
+							$query = "select t.cod_tipo_doc_usuario, t.des_tipo_doc_usuario from tipo_doc_identidad t";
 
 							echo "<select name='tdc'>";
 
@@ -270,7 +330,7 @@
 							require_once "Modelo/Conexion.php";
 							$con = new Conexion();
 
-							$query = "SELECT t.cod_tip_afe_igv, t.des_tip_afe_igv FROM TIPO_AFECTACION_IGV t";
+							$query = "select t.cod_tip_afe_igv, t.des_tip_afe_igv from tipo_afectacion_igv t";
 
 							echo "<select name='taigv'>";
 
@@ -296,9 +356,5 @@
 
 
 </body>
-<script src='js/jquery.min.js'></script>
-<script  src="js/index.js"></script>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>  
-<link rel="stylesheet" href="CSS/style.css">
 
-</html>
+</html>				
